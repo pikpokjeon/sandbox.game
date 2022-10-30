@@ -33,12 +33,14 @@ export const genCubesByTypes = () =>
 
 }
 
-const genRandomInRange = ( min, max ) => Math.floor( Math.random() * max + min )
+export const genRandomInRange = ( min, max ) => Math.round( Math.random() * max ) + min
 
-export const mixCubes = cubes =>
+export const mixCubes = cubesByType =>
 {
+    const cubes = [...Object.values( cubesByType ).flatMap( f => f )]
     const _cubes = [...cubes]
-    return cubes.reduce( ( box, _, i ) =>
+    console.log( cubes )
+    const que = cubes.reduce( ( box, _, i ) =>
     {
         while ( 1 )
         {
@@ -52,9 +54,7 @@ export const mixCubes = cubes =>
         }
         return box
     }, [] )
+    console.log( que )
+    return que
 }
 
-export const mixCubesByType = ( cubesByType = {} ) =>
-    Object.entries( cubesByType )
-        .reduce( ( acc, [type, cubes] ) =>
-            ( {...acc, [type]: mixCubes( cubes )} ), {} )
